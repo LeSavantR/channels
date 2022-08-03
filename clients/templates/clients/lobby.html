@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+</head>
+
+<body>
+    <h1>Let's Chat</h1>
+    <h6 id="connection"></h6>
+
+    <form id="form">
+        <input type="text" name="message" />
+    </form>
+
+    <section id="messages"></section>
+
+    <script type='text/javascript'>
+        const $ = item => document.getElementById(item);
+
+        let url = `ws://${window.location.host}/ws/socket-server/`;
+        const type = $('connection');
+
+        const chatSocket = new WebSocket(url);
+
+        chatSocket.onmessage = function (message) {
+            let data = JSON.parse(message.data);
+            console.log('Data', data);
+            type.innerHTML = data.type;
+
+            item = `${data.message}`;
+
+            if (data.type === 'chat') {
+                let container = $('messages');
+
+                container.append(item);
+            }
+        };
+        let form = $('form');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            let message = event.target.message.value;
+
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+
+            form.reset();
+        })
+
+    </script>
+</body>
+
+</html>

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'channels',
     'channels_redis',
-    'rest_framework_simplejwt',
     'clients',
 ]
 
@@ -86,14 +85,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-ASGI_APPLICATION = 'core.routing.application'
+ASGI_APPLICATION = 'core.asgi.application'
 
-CHANNELS_LAYERS = {
+CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channel_backends.redis.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('localhost', 6379),],
-        }
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
     }
 }
 

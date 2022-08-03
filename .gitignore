@@ -1,2 +1,6 @@
 # Virtual Env
 venv/
+
+# PyCache
+*/migrations/*
+*/__pycache__/*

@@ -14,3 +14,5 @@ def get_user(token):
         return User.objects.filter(username=token).first()
     except:
         return AnonymousUser()
+
+
