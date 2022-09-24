@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 class Paciente(models.Model):
+    """
+        Paciente:
+        - Nombre.
+        - Apellido.
+        - Documento.
+        - Numero.
+    """
     nombre = models.CharField(
         verbose_name='Nombre',
         max_length=100,
