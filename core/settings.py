@@ -89,7 +89,10 @@ ASGI_APPLICATION = 'core.asgi.application'
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        "CONFIG": {
+            "host": [("cache", 6379)],
+        }
     }
 }
 
@@ -98,9 +101,13 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'channels',
+        'USER': 'admin',
+        'PASSWORD': '220914Rulu',
+        'HOST': 'db',
+        'PORT': '5432',
+    },
 }
 
 
